@@ -1,0 +1,35 @@
+{
+  "expo": {
+    "name": "wdv_react-native",
+    "slug": "wdv_react-native",
+    "scheme": "wdv",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/app-icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/images/app-splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#F49B42"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/app-adaptive-icon.png",
+        "backgroundColor": "#F49B42"
+      }
+    },
+    "web": {
+      "favicon": "./assets/images/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router"
+    ]
+  }
+}

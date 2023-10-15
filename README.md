@@ -1,0 +1,3 @@
+# About This Repo
+
+This repo contains a React Native mobile application that consumes a custom MERN stack REST API that stores a list of pets in a MongoDB Atlas database. Each entry for a pet contains the animal's name, breed, weight, and age, along with the original date it was added to the database. The React Native app provides a frontend user interface allowing the user to create, read, update, and delete information from the MongoDB Atlas database. This project was built during Week 3 of the Deployment of Web Applications class as a part of the Web Development degree program at Full Sail University.
