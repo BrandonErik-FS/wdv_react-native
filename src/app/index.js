@@ -51,7 +51,10 @@ export default function Page() {
 
   return (
     <>
-      <Text style={styles.title}>Pets</Text>
+      <View style={styles.header}>
+        <Text style={styles.title}>Pets</Text>
+        <AddPetButton />
+      </View>
       <FlatList
         style={styles.flatList}
         data={pets}
@@ -73,23 +76,20 @@ export default function Page() {
           <RefreshControl refreshing={isFetchingPets.current} onRefresh={fetchPets} />
         }
       />
-      <AddPetButton />
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  header: {
     width: "100%",
-    flex: 1,
     display: "flex",
-    flexDirection: "column",
+    flexDirection: "row",
+    justifyContent: "space-between",
     alignItems: "center",
-    gap: 16,
-    padding: 16,
-    backgroundColor: "#f49b42",
+    paddingHorizontal: 16,
   },
-  title: { fontSize: 48, fontWeight: "bold", marginVertical: 16 },
+  title: { flex: 1, fontSize: 48, fontFamily: "ConcertOne-Regular", marginVertical: 16 },
   flatList: {
     width: "100%",
   },

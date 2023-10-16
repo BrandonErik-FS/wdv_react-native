@@ -17,10 +17,6 @@ export default AddPetButton;
 
 const styles = StyleSheet.create({
   pressable: {
-    zIndex: 1,
-    position: "absolute",
-    top: 32,
-    right: 16,
     padding: 16,
     backgroundColor: "#af1827",
     color: "#ffffff",
@@ -33,5 +29,6 @@ const styles = StyleSheet.create({
   text: {
     color: "#ffffff",
     fontWeight: "bold",
+    fontFamily: "OpenSans-Bold",
   },
 });

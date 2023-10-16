@@ -88,6 +88,7 @@ export default function Page() {
           value={name}
           returnKeyType="next"
           blurOnSubmit={false}
+          cursorColor="#af1827"
           onChangeText={(newName) => setName(newName)}
           onSubmitEditing={() => {
             breedField.current.focus();
@@ -102,6 +103,7 @@ export default function Page() {
           value={breed}
           returnKeyType="next"
           blurOnSubmit={false}
+          cursorColor="#af1827"
           onChangeText={(newBreed) => setBreed(newBreed)}
           onSubmitEditing={() => {
             weightField.current.focus();
@@ -115,6 +117,7 @@ export default function Page() {
           value={weight.toString()}
           returnKeyType="next"
           blurOnSubmit={false}
+          cursorColor="#af1827"
           onChangeText={(newWeight) => setWeight(newWeight)}
           onSubmitEditing={() => {
             ageField.current.focus();
@@ -126,6 +129,7 @@ export default function Page() {
           placeholder="Age"
           inputMode="numeric"
           value={age.toString()}
+          cursorColor="#af1827"
           onChangeText={(newAge) => setAge(newAge)}
         />
         <Pressable
@@ -152,9 +156,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#f49b42",
   },
   title: {
-    fontSize: 48,
-    fontWeight: "bold",
     marginVertical: 16,
+    fontSize: 48,
+    fontFamily: "ConcertOne-Regular",
   },
   formContainer: {
     boxSizing: "border-box",
@@ -177,6 +181,7 @@ const styles = StyleSheet.create({
     borderColor: "transparent",
     backgroundColor: "#ffffff",
     fontSize: 16,
+    fontFamily: "OpenSans-Regular",
   },
   submitButton: {
     backgroundColor: "#af1827",
@@ -196,5 +201,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "bold",
     fontSize: 16,
+    fontFamily: "OpenSans-Bold",
   },
 });

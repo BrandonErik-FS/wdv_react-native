@@ -1,5 +1,5 @@
 import { router } from "expo-router";
-import { Image, StyleSheet, Pressable } from "react-native";
+import { Image, Pressable, StyleSheet, View } from "react-native";
 
 const Header = (props) => {
   const NavigateHome = () => {
@@ -7,14 +7,16 @@ const Header = (props) => {
   };
 
   return (
-    <Pressable style={styles.container} onPress={NavigateHome}>
-      <Image
-        style={styles.image}
-        source={require("../../assets/images/app-icon.png")}
-        resizeMode="cover"
-        resizeMethod="scale"
-      />
-    </Pressable>
+    <View style={styles.container}>
+      <Pressable onPress={NavigateHome}>
+        <Image
+          style={styles.image}
+          source={require("../../assets/images/app-icon.png")}
+          resizeMode="cover"
+          resizeMethod="scale"
+        />
+      </Pressable>
+    </View>
   );
 };
 

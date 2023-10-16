@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 const Footer = () => {
   return (
     <View style={styles.container}>
-      <Text>Copyright &copy; {new Date().getFullYear()}</Text>
+      <Text style={styles.copyright}>Copyright &copy; {new Date().getFullYear()}</Text>
     </View>
   );
 };
@@ -20,5 +20,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 16,
     backgroundColor: "#ffc357",
+  },
+  copyright: {
+    fontFamily: "OpenSans-Regular",
+    fontSize: 16,
   },
 });

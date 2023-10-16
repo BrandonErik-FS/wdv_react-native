@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginVertical: 8,
     fontSize: 28,
-    fontWeight: "bold",
+    fontFamily: "ConcertOne-Regular",
   },
   metaContainer: {
     width: "100%",
@@ -70,8 +70,9 @@ const styles = StyleSheet.create({
     padding: 0,
     fontWeight: "bold",
     fontSize: 16,
+    fontFamily: "OpenSans-Bold",
   },
-  infoValue: { fontWeight: "normal", fontSize: 16 },
+  infoValue: { fontWeight: "normal", fontSize: 16, fontFamily: "OpenSans-Regular" },
   buttonContainer: {
     width: "100%",
     flex: 1,
@@ -90,7 +91,6 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     border: "none",
     textAlign: "center",
-    fontWeight: "bold",
     cursor: "pointer",
     boxShadow:
       "rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,rgba(0, 0, 0, 0.2) 0px -3px 0px inset",
@@ -100,6 +100,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "bold",
     fontSize: 16,
+    fontFamily: "OpenSans-Bold",
   },
   deleteButton: {
     flex: 1,
@@ -110,7 +111,6 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     border: "none",
     textAlign: "center",
-    fontWeight: "bold",
     cursor: "pointer",
     boxShadow:
       "rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,rgba(0, 0, 0, 0.2) 0px -3px 0px inset",
@@ -120,5 +120,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "bold",
     fontSize: 16,
+    fontFamily: "OpenSans-Bold",
   },
 });
