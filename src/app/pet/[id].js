@@ -1,6 +1,6 @@
 import { router, useLocalSearchParams } from "expo-router";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Pressable, Text, View } from "react-native";
+import { KeyboardAvoidingView, Platform, Pressable, StyleSheet, Text, View } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 
 export default function Page() {
@@ -45,12 +45,13 @@ export default function Page() {
 
   const savePet = async () => {
     try {
-      await fetch(`${API_BASE}/api/v1/pets/${id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id, name, breed, weight, age }),
+      await fetch(`${id !== "new" ? `${API_BASE}/api/v1/pets/${id}` : `${API_BASE}/api/v1/pets`}`, {
+        method: `${id !== "new" ? "PATCH" : "POST"}`,
+        headers: { "Content-Type": "application/json" },
+        body:
+          id !== "new"
+            ? JSON.stringify({ id, name, breed, weight, age })
+            : JSON.stringify({ name, breed, weight, age }),
       });
       router.replace("/");
     } catch (error) {
@@ -60,7 +61,7 @@ export default function Page() {
 
   const isFetchingPet = useRef(false);
   useEffect(() => {
-    if (!isFetchingPet.current && id) {
+    if (!isFetchingPet.current && id !== "new") {
       fetchPet();
     }
 
@@ -74,59 +75,126 @@ export default function Page() {
   };
 
   return (
-    <View>
-      <Text>Edit Pet</Text>
-      <TextInput
-        autoFocus
-        placeholder="Name"
-        inputMode="text"
-        autoCapitalize="words"
-        value={name}
-        returnKeyType="next"
-        blurOnSubmit={false}
-        onChangeText={(newName) => setName(newName)}
-        onSubmitEditing={() => {
-          breedField.current.focus();
-        }}
-      />
-      <TextInput
-        ref={breedField}
-        placeholder="Breed"
-        inputMode="text"
-        autoCapitalize="words"
-        value={breed}
-        returnKeyType="next"
-        blurOnSubmit={false}
-        onChangeText={(newBreed) => setBreed(newBreed)}
-        onSubmitEditing={() => {
-          weightField.current.focus();
-        }}
-      />
-      <TextInput
-        ref={weightField}
-        placeholder="Weight"
-        inputMode="numeric"
-        value={weight.toString()}
-        returnKeyType="next"
-        blurOnSubmit={false}
-        onChangeText={(newWeight) => setWeight(newWeight)}
-        onSubmitEditing={() => {
-          ageField.current.focus();
-        }}
-      />
-      <TextInput
-        ref={ageField}
-        placeholder="Age"
-        inputMode="numeric"
-        value={age.toString()}
-        onChangeText={(newAge) => setAge(newAge)}
-      />
-      <Pressable
-        onPress={() => {
-          handleSubmit();
-        }}>
-        <Text>Save</Text>
-      </Pressable>
-    </View>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.container}>
+      <Text style={styles.title}>{id !== "new" ? "Edit Pet" : "Add Pet"}</Text>
+      <View style={styles.formContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Name"
+          inputMode="text"
+          autoCapitalize="words"
+          value={name}
+          returnKeyType="next"
+          blurOnSubmit={false}
+          onChangeText={(newName) => setName(newName)}
+          onSubmitEditing={() => {
+            breedField.current.focus();
+          }}
+        />
+        <TextInput
+          style={styles.input}
+          ref={breedField}
+          placeholder="Breed"
+          inputMode="text"
+          autoCapitalize="words"
+          value={breed}
+          returnKeyType="next"
+          blurOnSubmit={false}
+          onChangeText={(newBreed) => setBreed(newBreed)}
+          onSubmitEditing={() => {
+            weightField.current.focus();
+          }}
+        />
+        <TextInput
+          style={styles.input}
+          ref={weightField}
+          placeholder="Weight"
+          inputMode="numeric"
+          value={weight.toString()}
+          returnKeyType="next"
+          blurOnSubmit={false}
+          onChangeText={(newWeight) => setWeight(newWeight)}
+          onSubmitEditing={() => {
+            ageField.current.focus();
+          }}
+        />
+        <TextInput
+          style={styles.input}
+          ref={ageField}
+          placeholder="Age"
+          inputMode="numeric"
+          value={age.toString()}
+          onChangeText={(newAge) => setAge(newAge)}
+        />
+        <Pressable
+          style={styles.submitButton}
+          onPress={() => {
+            handleSubmit();
+          }}>
+          <Text style={styles.submitButtonText}>Save</Text>
+        </Pressable>
+      </View>
+    </KeyboardAvoidingView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    width: "100%",
+    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    gap: 16,
+    paddingHorizontal: 16,
+    backgroundColor: "#f49b42",
+  },
+  title: {
+    fontSize: 48,
+    fontWeight: "bold",
+    marginVertical: 16,
+  },
+  formContainer: {
+    boxSizing: "border-box",
+    width: "100%",
+    maxWidth: "1000px",
+    display: "flex",
+    gap: 8,
+    padding: 16,
+    borderRadius: 8,
+    backgroundColor: "#ffc357",
+    boxShadow: "rgba(0, 0, 0, 0.2) 0px 5px 15px 0px",
+  },
+  input: {
+    width: "100%",
+    margin: 0,
+    padding: 8,
+    borderRadius: 4,
+    borderWidth: 2,
+    borderStyle: "solid",
+    borderColor: "transparent",
+    backgroundColor: "#ffffff",
+    fontSize: 16,
+  },
+  submitButton: {
+    backgroundColor: "#af1827",
+    width: "100%",
+    display: "block",
+    padding: 8,
+    borderRadius: 4,
+    border: "none",
+    textAlign: "center",
+    fontWeight: "bold",
+    cursor: "pointer",
+    boxShadow:
+      "rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,rgba(0, 0, 0, 0.2) 0px -3px 0px inset",
+  },
+  submitButtonText: {
+    color: "#ffffff",
+    textAlign: "center",
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+});

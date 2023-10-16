@@ -1,13 +1,20 @@
-import { Link } from "expo-router";
-import { View, Image, StyleSheet } from "react-native";
+import { router } from "expo-router";
+import { Image, StyleSheet, Pressable } from "react-native";
 
 const Header = (props) => {
+  const NavigateHome = () => {
+    router.push("/");
+  };
+
   return (
-    <View style={styles.container}>
-      <Link href={props.linkTo}>
-        <Image style={styles.image} source={props.logoSrc} />
-      </Link>
-    </View>
+    <Pressable style={styles.container} onPress={NavigateHome}>
+      <Image
+        style={styles.image}
+        source={require("../../assets/images/app-icon.png")}
+        resizeMode="cover"
+        resizeMethod="scale"
+      />
+    </Pressable>
   );
 };
 
@@ -23,9 +30,5 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: "#ffc357",
   },
-  image: {
-    width: 64,
-    height: 64,
-    borderRadius: 100,
-  },
+  image: { width: 82, height: 82, borderRadius: 100 },
 });

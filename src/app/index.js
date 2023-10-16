@@ -1,7 +1,6 @@
 import { router } from "expo-router";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { FlatList } from "react-native-gesture-handler";
+import { FlatList, RefreshControl, StyleSheet, Text, View } from "react-native";
 
 import AddPetButton from "../components/AddPetButton";
 import PetCard from "../components/PetCard";
@@ -51,10 +50,10 @@ export default function Page() {
   }, [fetchPets]);
 
   return (
-    <View style={styles.container}>
-      <Text>Pets</Text>
+    <>
+      <Text style={styles.title}>Pets</Text>
       <FlatList
-        style={{ width: "100%" }}
+        style={styles.flatList}
         data={pets}
         renderItem={({ item }) => (
           <PetCard
@@ -67,9 +66,15 @@ export default function Page() {
             deletePet={() => deletePet(item._id)}
           />
         )}
+        ListEmptyComponent={<Text style={styles.emptyMessage}>No Pets Found</Text>}
+        ItemSeparatorComponent={<View style={styles.separator} />}
+        ListFooterComponent={<View style={styles.separator} />}
+        refreshControl={
+          <RefreshControl refreshing={isFetchingPets.current} onRefresh={fetchPets} />
+        }
       />
       <AddPetButton />
-    </View>
+    </>
   );
 }
 
@@ -83,5 +88,17 @@ const styles = StyleSheet.create({
     gap: 16,
     padding: 16,
     backgroundColor: "#f49b42",
+  },
+  title: { fontSize: 48, fontWeight: "bold", marginVertical: 16 },
+  flatList: {
+    width: "100%",
+  },
+  separator: {
+    height: 16,
+  },
+  emptyMessage: {
+    fontSize: 36,
+    fontWeight: "normal",
+    textAlign: "center",
   },
 });

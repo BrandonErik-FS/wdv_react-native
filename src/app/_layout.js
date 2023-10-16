@@ -7,7 +7,7 @@ import Header from "../components/Header";
 export default function RootLayout() {
   return (
     <SafeAreaView style={styles.container}>
-      <Header linkTo="/" logoSrc={require("../../assets/images/app-icon.png")} />
+      <Header />
       <Slot />
       <Footer />
     </SafeAreaView>

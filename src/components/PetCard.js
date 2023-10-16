@@ -5,23 +5,20 @@ import formatDate from "../utils/formatDate";
 const PetCard = (props) => {
   return (
     <View style={styles.container}>
-      <View>
+      <View style={styles.infoContainer}>
         <Text style={styles.infoHeading}>{props.name}</Text>
-        <View style={styles.infoContainer}>
+        <View style={styles.metaContainer}>
           <Text style={styles.infoTitle}>
-            Breed:
-            <Text style={styles.infoTitle}>{props.breed}</Text>
+            Breed: <Text style={styles.infoValue}>{props.breed}</Text>
           </Text>
           <Text style={styles.infoTitle}>
-            Weight:
-            <Text style={styles.infoTitle}>{props.weight}</Text>
+            Weight: <Text style={styles.infoValue}>{props.weight}</Text>
           </Text>
           <Text style={styles.infoTitle}>
-            Age: <Text style={styles.infoTitle}>{props.age}</Text>
+            Age: <Text style={styles.infoValue}>{props.age}</Text>
           </Text>
           <Text style={styles.infoTitle}>
-            Date Added:
-            <Text style={styles.infoTitle}>{formatDate(props.created_at)}</Text>
+            Date Added: <Text style={styles.infoValue}>{formatDate(props.created_at)}</Text>
           </Text>
         </View>
       </View>
@@ -41,41 +38,47 @@ export default PetCard;
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
     boxSizing: "border-box",
     display: "flex",
     flexDirection: "column",
-    justifyContent: "space-between",
+    justifyContent: "center",
     alignItems: "center",
     gap: 16,
     padding: 16,
+    marginHorizontal: 16,
     borderRadius: 8,
     backgroundColor: "#ffc357",
   },
+  infoContainer: { width: "100%" },
   infoHeading: {
     textAlign: "center",
-    margin: 0,
+    marginVertical: 8,
+    fontSize: 28,
+    fontWeight: "bold",
   },
-  infoContainer: {
+  metaContainer: {
     width: "100%",
-    flex: 2,
     display: "flex",
-    flexDirection: "column",
+    flexDirection: "row",
+    justifyContent: "center",
+    flexWrap: "wrap",
+    marginVertical: 8,
     gap: 8,
   },
   infoTitle: {
     margin: 0,
     padding: 0,
-    display: "flex",
-    flexDirection: "column",
-    gap: 16,
+    fontWeight: "bold",
+    fontSize: 16,
   },
-  infoValue: { fontWeight: "bold", textAlign: "center" },
+  infoValue: { fontWeight: "normal", fontSize: 16 },
   buttonContainer: {
     width: "100%",
     flex: 1,
     display: "flex",
-    flexDirection: "column",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
     gap: 8,
   },
   editButton: {
@@ -96,6 +99,7 @@ const styles = StyleSheet.create({
     color: "#212121",
     textAlign: "center",
     fontWeight: "bold",
+    fontSize: 16,
   },
   deleteButton: {
     flex: 1,
@@ -115,5 +119,6 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     textAlign: "center",
     fontWeight: "bold",
+    fontSize: 16,
   },
 });

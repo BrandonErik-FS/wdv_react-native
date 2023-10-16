@@ -17,11 +17,11 @@ export default AddPetButton;
 
 const styles = StyleSheet.create({
   pressable: {
-    position: "fixed",
-    bottom: 0,
-    right: 0,
+    zIndex: 1,
+    position: "absolute",
+    top: 32,
+    right: 16,
     padding: 16,
-    margin: 32,
     backgroundColor: "#af1827",
     color: "#ffffff",
     display: "block",
