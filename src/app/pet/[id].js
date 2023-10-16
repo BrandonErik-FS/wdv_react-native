@@ -1,13 +1,14 @@
 import { router, useLocalSearchParams } from "expo-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { KeyboardAvoidingView, Platform, Pressable, StyleSheet, Text, View } from "react-native";
-import { TextInput } from "react-native-gesture-handler";
+import { ScrollView, TextInput } from "react-native-gesture-handler";
 
 export default function Page() {
   const [name, setName] = useState("");
   const [breed, setBreed] = useState("");
   const [weight, setWeight] = useState("");
   const [age, setAge] = useState("");
+  const [validationError, setValidationError] = useState("");
 
   const breedField = useRef();
   const weightField = useRef();
@@ -71,75 +72,115 @@ export default function Page() {
   }, [fetchPet, id]);
 
   const handleSubmit = () => {
+    setValidationError("");
+
+    const nameRegex = /[a-zA-Z]$/g;
+    const nameIsValid = nameRegex.test(name);
+    if (!name || !nameIsValid) {
+      setValidationError("Please enter a valid name.\n(Upper & Lowercase Letters only)");
+      return;
+    }
+
+    const breedRegex = /[a-zA-Z]$/g;
+    const breedIsValid = breedRegex.test(breed);
+    if (!breed || !breedIsValid) {
+      setValidationError("Please enter a valid breed.\n(Upper & Lowercase Letters only)");
+      return;
+    }
+
+    const weightRegex = /^[1-9]\d*$/g;
+    const weightIsValid = weightRegex.test(weight);
+    if (!weight || !weightIsValid) {
+      setValidationError("Please enter a valid weight.\n(Whole Number Greater than 0)");
+      return;
+    }
+
+    const ageRegex = /^[1-9]\d*$/g;
+    const ageIsValid = ageRegex.test(age);
+    if (!age || !ageIsValid) {
+      setValidationError("Please enter a valid age.\n(Whole Number Greater than 0)");
+      return;
+    }
+
     savePet();
   };
 
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
+      enabled
       style={styles.container}>
-      <Text style={styles.title}>{id !== "new" ? "Edit Pet" : "Add Pet"}</Text>
-      <View style={styles.formContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Name"
-          inputMode="text"
-          autoCapitalize="words"
-          value={name}
-          returnKeyType="next"
-          blurOnSubmit={false}
-          cursorColor="#af1827"
-          onChangeText={(newName) => setName(newName)}
-          onSubmitEditing={() => {
-            breedField.current.focus();
-          }}
-        />
-        <TextInput
-          style={styles.input}
-          ref={breedField}
-          placeholder="Breed"
-          inputMode="text"
-          autoCapitalize="words"
-          value={breed}
-          returnKeyType="next"
-          blurOnSubmit={false}
-          cursorColor="#af1827"
-          onChangeText={(newBreed) => setBreed(newBreed)}
-          onSubmitEditing={() => {
-            weightField.current.focus();
-          }}
-        />
-        <TextInput
-          style={styles.input}
-          ref={weightField}
-          placeholder="Weight"
-          inputMode="numeric"
-          value={weight.toString()}
-          returnKeyType="next"
-          blurOnSubmit={false}
-          cursorColor="#af1827"
-          onChangeText={(newWeight) => setWeight(newWeight)}
-          onSubmitEditing={() => {
-            ageField.current.focus();
-          }}
-        />
-        <TextInput
-          style={styles.input}
-          ref={ageField}
-          placeholder="Age"
-          inputMode="numeric"
-          value={age.toString()}
-          cursorColor="#af1827"
-          onChangeText={(newAge) => setAge(newAge)}
-        />
-        <Pressable
-          style={styles.submitButton}
-          onPress={() => {
-            handleSubmit();
-          }}>
-          <Text style={styles.submitButtonText}>Save</Text>
-        </Pressable>
-      </View>
+      <ScrollView style={styles.scrollView}>
+        <Text style={styles.title}>{id !== "new" ? "Edit Pet" : "Add Pet"}</Text>
+        <View style={styles.formContainer}>
+          {validationError !== "" ? (
+            <View style={styles.validationErrorContainer}>
+              <Text style={styles.validationErrorKey}>
+                Error: <Text style={styles.validationErrorValue}>{validationError}</Text>
+              </Text>
+            </View>
+          ) : null}
+          <TextInput
+            style={styles.input}
+            placeholder="Name"
+            inputMode="text"
+            autoCapitalize="words"
+            value={name}
+            returnKeyType="next"
+            blurOnSubmit={false}
+            cursorColor="#af1827"
+            onChangeText={(newName) => setName(newName)}
+            onSubmitEditing={() => {
+              breedField.current.focus();
+            }}
+          />
+          <TextInput
+            style={styles.input}
+            ref={breedField}
+            placeholder="Breed"
+            inputMode="text"
+            autoCapitalize="words"
+            value={breed}
+            returnKeyType="next"
+            blurOnSubmit={false}
+            cursorColor="#af1827"
+            onChangeText={(newBreed) => setBreed(newBreed)}
+            onSubmitEditing={() => {
+              weightField.current.focus();
+            }}
+          />
+          <TextInput
+            style={styles.input}
+            ref={weightField}
+            placeholder="Weight"
+            inputMode="numeric"
+            value={weight.toString()}
+            returnKeyType="next"
+            blurOnSubmit={false}
+            cursorColor="#af1827"
+            onChangeText={(newWeight) => setWeight(newWeight)}
+            onSubmitEditing={() => {
+              ageField.current.focus();
+            }}
+          />
+          <TextInput
+            style={styles.input}
+            ref={ageField}
+            placeholder="Age"
+            inputMode="numeric"
+            value={age.toString()}
+            cursorColor="#af1827"
+            onChangeText={(newAge) => setAge(newAge)}
+          />
+          <Pressable
+            style={styles.submitButton}
+            onPress={() => {
+              handleSubmit();
+            }}>
+            <Text style={styles.submitButtonText}>Save</Text>
+          </Pressable>
+        </View>
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 }
@@ -155,15 +196,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     backgroundColor: "#f49b42",
   },
+  scrollView: { width: "100%" },
   title: {
     marginVertical: 16,
+    textAlign: "center",
     fontSize: 48,
     fontFamily: "ConcertOne-Regular",
   },
   formContainer: {
     boxSizing: "border-box",
     width: "100%",
-    maxWidth: "1000px",
     display: "flex",
     gap: 8,
     padding: 16,
@@ -203,4 +245,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: "OpenSans-Bold",
   },
+  validationErrorContainer: { padding: 8, backgroundColor: "#af1827", borderRadius: 4 },
+  validationErrorKey: {
+    fontFamily: "OpenSans-Bold",
+    fontSize: 16,
+    color: "#ffffff",
+    textAlign: "center",
+  },
+  validationErrorValue: { fontFamily: "OpenSans-Regular", fontSize: 16 },
 });
