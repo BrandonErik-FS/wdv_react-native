@@ -48,6 +48,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     borderRadius: 8,
     backgroundColor: "#ffc357",
+    elevation: 2,
+    boxShadow: "rgba(0, 0, 0, 0.2) 0px 5px 15px 0px",
   },
   infoContainer: { width: "100%" },
   infoHeading: {
@@ -92,6 +94,7 @@ const styles = StyleSheet.create({
     border: "none",
     textAlign: "center",
     cursor: "pointer",
+    elevation: 2,
     boxShadow:
       "rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,rgba(0, 0, 0, 0.2) 0px -3px 0px inset",
   },
@@ -112,6 +115,7 @@ const styles = StyleSheet.create({
     border: "none",
     textAlign: "center",
     cursor: "pointer",
+    elevation: 2,
     boxShadow:
       "rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,rgba(0, 0, 0, 0.2) 0px -3px 0px inset",
   },
