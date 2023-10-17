@@ -23,10 +23,24 @@ const PetCard = (props) => {
         </View>
       </View>
       <View style={styles.buttonContainer}>
-        <Pressable style={styles.editButton} onPress={props.editPet}>
+        <Pressable
+          style={({ pressed }) => [
+            {
+              backgroundColor: pressed ? "#e4e4e4" : "#ffffff",
+            },
+            styles.editButton,
+          ]}
+          onPress={props.editPet}>
           <Text style={styles.editButtonText}>Edit</Text>
         </Pressable>
-        <Pressable style={styles.deleteButton} onPress={props.deletePet}>
+        <Pressable
+          style={({ pressed }) => [
+            {
+              backgroundColor: pressed ? "#822A34" : "#af1827",
+            },
+            styles.deleteButton,
+          ]}
+          onPress={props.deletePet}>
           <Text style={styles.deleteButtonText}>Delete</Text>
         </Pressable>
       </View>
@@ -90,7 +104,6 @@ const styles = StyleSheet.create({
   },
   editButton: {
     flex: 1,
-    backgroundColor: "#ffffff",
     width: "100%",
     display: "block",
     padding: 8,
@@ -115,7 +128,6 @@ const styles = StyleSheet.create({
   },
   deleteButton: {
     flex: 1,
-    backgroundColor: "#af1827",
     width: "100%",
     display: "block",
     padding: 8,

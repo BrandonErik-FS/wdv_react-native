@@ -8,7 +8,19 @@ const Header = (props) => {
 
   return (
     <View style={styles.container}>
-      <Pressable onPress={NavigateHome}>
+      <Pressable
+        style={({ pressed }) => [
+          {
+            backgroundColor: pressed ? "#e4e4e4" : "#ffffff",
+            borderRadius: 100,
+            elevation: pressed ? 0 : 4,
+            shadowColor: "#000000",
+            shadowOffset: { width: 0, height: 1 },
+            shadowOpacity: pressed ? 0 : 0.5,
+            shadowRadius: 1,
+          },
+        ]}
+        onPress={NavigateHome}>
         <Image
           style={styles.image}
           source={require("../../assets/images/app-icon.png")}

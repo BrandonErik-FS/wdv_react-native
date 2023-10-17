@@ -173,7 +173,12 @@ export default function Page() {
             onChangeText={(newAge) => setAge(newAge)}
           />
           <Pressable
-            style={styles.submitButton}
+            style={({ pressed }) => [
+              {
+                backgroundColor: pressed ? "#822A34" : "#af1827",
+              },
+              styles.submitButton,
+            ]}
             onPress={() => {
               handleSubmit();
             }}>
@@ -231,7 +236,6 @@ const styles = StyleSheet.create({
     fontFamily: "OpenSans-Regular",
   },
   submitButton: {
-    backgroundColor: "#af1827",
     width: "100%",
     display: "block",
     padding: 8,

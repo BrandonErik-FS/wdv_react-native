@@ -7,7 +7,14 @@ const AddPetButton = () => {
   };
 
   return (
-    <Pressable style={styles.pressable} onPress={NavigateToPetForm}>
+    <Pressable
+      style={({ pressed }) => [
+        {
+          backgroundColor: pressed ? "#822A34" : "#af1827",
+        },
+        styles.pressable,
+      ]}
+      onPress={NavigateToPetForm}>
       <Text style={styles.text}>Add Pet</Text>
     </Pressable>
   );
@@ -18,8 +25,6 @@ export default AddPetButton;
 const styles = StyleSheet.create({
   pressable: {
     padding: 8,
-    backgroundColor: "#af1827",
-    color: "#ffffff",
     display: "block",
     borderRadius: 8,
     border: "none",
