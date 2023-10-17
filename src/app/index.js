@@ -97,8 +97,9 @@ const styles = StyleSheet.create({
     height: 16,
   },
   emptyMessage: {
-    fontSize: 36,
+    fontSize: 28,
     fontWeight: "normal",
     textAlign: "center",
+    fontFamily: "ConcertOne-Regular",
   },
 });
